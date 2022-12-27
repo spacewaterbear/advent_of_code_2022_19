@@ -1,3 +1,5 @@
+from enum import Enum
+
 from pydantic import BaseModel
 
 
@@ -28,3 +30,7 @@ class BleuPrint(BaseModel):
     clay_robot_cost: int
     obsidian_robot_cost: ObsidianRobotCost
     geo_robot_cost: GeoRobotCost
+
+
+class RLAlgo(str, Enum):
+    q_learning_agent = "q_learning_agent"

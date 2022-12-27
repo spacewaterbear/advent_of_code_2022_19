@@ -12,14 +12,12 @@ from variables import model_folder
 np.random.seed(42)
 
 
-class QAgent:
+class Agent:
     def __init__(self, blue_print: BleuPrint, load_q_table: bool, eps: float = 0.1, gamma: float = 0.9, alpha: float = 0.2):
         self.blue_print = blue_print
         self.eps = eps
         self.gamma = gamma
         self.alpha = alpha
-        self.action_space = [0, 0, 0, 0, 0]
-        self.Q_table = {}
         if load_q_table:
             q_table_file = os.path.join(model_folder, f"{blue_print.blue_print_number}_Q_table.txt")
             if os.path.exists(q_table_file):
@@ -59,13 +57,6 @@ class QAgent:
         else:
             return max_index
 
-    def policy(self, state: Tuple[int, int, int, int, int, int, int, int], eval=False) -> int:
-        """Epsilon greedy policy"""
-        if state not in self.Q_table:
-            self.Q_table[state] = self.action_space.copy()
-        possible_actions = self._get_possible_actions(state)
-        if (np.random.random() < self.eps or state not in self.Q_table) and not eval:
-            return np.random.choice(possible_actions)
-        else:
-            action = self._get_max_action_within_a_range_of_allowed_action(state, possible_actions)
-            return action
+    def policy(self):
+        """need to be implemented"""
+        raise NotImplementedError
